@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>AdminLTE 2 | Dashboard</title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../static/css/AdminLTE.css">
+  <link rel="stylesheet" href="../static/css/skins/_all-skins.css">
+  <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="skin-blue">
+  <div class="wrapper">
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="#" class="logo"><b style="color: cornflowerblue;">MY</b>Laptop</a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="../static/img/image_1.jpg" class="user-image" alt="User Image" />
+                <span class="hidden-xs"><%= admin.admin.displayName %> </span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <img src="../static/img/image_1.jpg" class="img-circle" alt="User Image" />
+                  <p>
+                    <%= admin.admin.displayName %>  - Web Developer
+                    <small>Member since Nov. 2012</small>
+                  </p>
+                </li>
+                <!-- Menu Body -->
+                <li class="user-body">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="../static/img/image_1.jpg" class="img-circle" alt="User Image" />
+          </div>
+          <div class="pull-left info">
+            <p><%= admin.admin.displayName %> </p>
+
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search..." />
+            <span class="input-group-btn">
+              <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i
+                  class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active treeview">
+          <li class="treeview active">
+            <a href="/products/laptop">
+              <i class="fa fa-table"></i>
+              <span>Danh sách laptop</span>
+            </a>
+          </li>
+            <li class="treeview">
+              <a href="/products/add-product">
+                <i class="ion ion-ios-plus-outline"></i>
+                <span>Thêm sản phẩm</span>
+                <i class="fa fa-angle-left pull-right"></i>
+                <ul class="treeview-menu">
+                  <li><a href="/products/laptop/add-laptop"><i class="fa fa-circle-o"></i>Laptop</a></li>
+                </ul>
+              </a>
+            </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Dashboard
+          <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active">Dashboard</li>
+        </ol>
+      </section>
+      <div style="padding: 20px; background-color: white;">
+        <div class="row" style="align-items: center; padding-top: 10px; padding-bottom: 10px;">
+          <div class="col-sm-2">
+            <p style="font-size: 20px;">Danh sách laptop</h4>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" id="searchByName" placeholder="Tìm kiếm..." onchange="filterProducts(this)">
+          </div>
+          <div class="col-sm-5" style="margin-top: 8px;">
+            <label for="sortByBrand">Thương hiệu: </label>
+            <select id="sortByBrand" onchange="setSortByBrand(this)">
+              <% brands.forEach( b => { %>
+                <option value="<%= b.name %>"><%= b.name %></option>
+              <% }); %>
+            </select>
+              <label for="sortByOther" style="margin-left: 25px;">Xếp theo: </label>
+              <select id="sortByOther" onchange="setSortByOther(this)">
+                <option value="addDate">Ngày thêm</option>
+                <option value="price">Giá bán</option>
+                <option value="viewCount">Lượt Xem</option>
+                <option value="rating">Đánh giá</option>
+              </select>
+          </div>
+          <div class="col-sm-2 text-right">
+            <button type="button" class="btn btn-primary" onclick="goToAddNew()">Thêm mới</button>
+          </div>
+        </div>
+        <table class="table table-hover table-striped table-bordered" id="product_table">
+          <thead class="thead-dark">
+            <tr>
+              <th style="width: 5%;">STT</th>
+              <th style="width: 20%;">Tên</th>
+              <th style="width: 10%;">Giá</th>
+              <th style="width: 10%;">Thương hiệu</th>
+              <th style="width: 15%;">Ảnh</th>
+              <th style="width: 10%;">Ngày thêm</th>
+              <th style="width: 15%;">Thông tin chi tiết</th>
+              <th style="width: 15%;" class="text-right">Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="product_rows">
+            <% laptops.forEach((p, index) => { %>
+            <tr>
+              <th><%= index+1 %></th>
+              <th><%= p.name %></th>
+              <th><%= p.price.toLocaleString() %> VNĐ</th>
+              <th><%= p.brand %> </th>
+              <th class="text-center"><img src="http://localhost:4000/images/<%= p.image %> " width="120" height="120"></th>
+              <th><%= p.addDate %></th>
+              <th>
+                <p class="product-detail" data-toggle="modal" data-target="#myModal"
+                  onclick="showProductDetail('<%= JSON.stringify(p) %>')">Chi tiết</p>
+              </th>
+              <th class="text-right">
+                <button type="button" class="btn btn-primary" onclick="goToEdit('<%= p._id %>')">Edit</button>
+                <button type="button" class="btn btn-danger" onclick="deleteProduct('<%= p._id %>')">Remove</button>
+              </th>
+            </tr>
+            <%}) %>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /.content-wrapper -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin sản phẩm</h4>
+          </div>
+          <div class="modal-body">
+            <div>
+              <p id="m_admin" style="color: dodgerblue;">Admin: </p>
+              <p id="m_addDate" style="color: dodgerblue;">Ngày thêm: </p>
+            </div>
+            <div id="product-infomation">
+              <h4>Tên sản phẩm: </h4>
+              <p id="m_name">Không</p>
+              <h4>Giá bán: </h4>
+              <p id="m_price">Không</p>
+              <h4>Thời gian pin: </h4>
+              <p id="m_batteryLife">Không</p>
+              <h4>Bộ nhớ card đồ họa: </h4>
+              <p id="m_graphicCardMemory">Không</p>
+              <h4>Thương hiệu: </h4>
+              <p id="m_brand">Không</p>
+              <h4>Camera: </h4>
+              <p id="m_camera">Không</p>
+              <h4>Card đồ họa: </h4>
+              <p id="m_graphicCard">Không</p>
+              <h4>CPU: </h4>
+              <p id="m_CPU">Không</p>
+              <h4>Tốc độ CPU: </h4>
+              <p id="m_CPUSpeed">Không</p>
+              <h4>Dung lượng ổ cứng: </h4>
+              <p id="m_diskSpace">Không</p>
+              <h4>Loại ổ cứng: </h4>
+              <p id="m_hardwareType">Không</p>
+              <h4>RAM: </h4>
+              <p id="m_RAM">Không</p>
+              <h4>Độ phân giải: </h4>
+              <p id="m_resolution">Không</p>
+              <h4>Hệ điều hành: </h4>
+              <p id="m_OS">Không</p>
+              <h4>Ảnh sản phẩm: </h4>
+              <img id="m_image" src="" style="margin-top: 10px;" width="150" height="150">
+              <h4>Mô tả sản phẩm: </h4>
+              <p id="m_description">Không</p>
+              <h4>Số lượng tồn kho: </h4>
+              <p id="m_quantity">0</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- ./wrapper -->
+  <script>
+    var brand = "Apple";
+    var sortByOther = "addDate";
+    function goToAddNew() {
+      window.location.href = '/products/laptop/add-laptop';
+    }
+    function goToEdit(id) {
+      window.location.href = '/products/laptop/edit-laptop/' + id;
+    }
+    function deleteProduct(id) {
+      $.ajax({
+        type: 'DELETE',
+        url: '/products/laptop/delete/' + id,
+        success: function (data) {
+          if (data.res == true) {
+            window.location.href = '/products/laptop'
+          }
+        },
+      });
+    }
+    function showProductDetail(stringified_product) {
+      let product = JSON.parse(stringified_product);
+      let p_tags = document.getElementById('product-infomation').getElementsByTagName('p');
+      const keys = Object.keys(product);
+      for (let i = 0; i < p_tags.length; i++) {
+        p_tags[i].innerHTML = product[keys[i + 1]];
+      }
+      document.getElementById('m_admin').innerText = `Admin: ${product.adminId.displayName}`;
+      document.getElementById('m_addDate').innerText = `Ngày thêm: ${product.addDate}`;
+      document.getElementById('m_image').src = "http://localhost:4000/images/" + product.image;
+      document.getElementById('m_description').innerText = product.description;
+      document.getElementById('m_quantity').innerText = product.quantity;
+    }
+    function formatPrice(price){
+      return `${price.toLocaleString()} VNĐ`;
+    }
+    function setSortByBrand(select){
+      brand = select.value;
+      filterProducts(document.getElementById('searchByName'));
+    }
+    function setSortByOther(select){
+      sortByOther = select.value;
+      filterProducts(document.getElementById('searchByName'));
+    }
+    function filterProducts(input) {
+      let productName = input.value.length==0?".*":input.value;
+      $.ajax({
+        type: 'GET',
+        url: `/products/laptop/filter/${productName}/${brand}/${sortByOther}`,
+        success: function (data) {
+          document.getElementById('product_rows').innerHTML = '';
+          for (let i = 0; i < data.laptops.length; i++) {
+            let product = data.laptops[i];
+            let product_rows =
+            `<tr><th>${i+1}</th>
+            <th>${product.name}</th>
+            <th>${formatPrice(product.price)}</th>
+            <th>${product.brand}</th>
+            <th class="text-center"><img src="http://localhost:4000/images/${product.image}" width="120" height="120"></th>
+            <th>${product.addDate}</th>
+            <th>
+              <p class="product-detail" id="p-${i}" data-toggle="modal" data-target="#myModal">Chi tiết</p>
+            </th>
+            <th class="text-right">
+              <button type="button" class="btn btn-primary" onclick="goToEdit('${product._id}')">Edit</button>
+              <button type="button" class="btn btn-danger" onclick="deleteProduct('${product._id}')">Remove</button>
+            </th></tr>`;
+            document.getElementById('product_rows').innerHTML += product_rows;
+          }
+          for(let j = 0; j < data.laptops.length; j++){
+            document.getElementById(`p-${j}`).onclick = function () {
+              let stringified = String(JSON.stringify(data.laptops[j])).replaceAll('\\\\n', '\\n').replaceAll('\\\\r','\\r');
+              showProductDetail(stringified);
+            };
+          }
+        },
+      });
+    }
+  </script>
+  <script src="../static/js/app.js" type="text/javascript"></script>
+  <script src="../static/js/demo.js" type="text/javascript"></script>
+</body>
+
+</html>
