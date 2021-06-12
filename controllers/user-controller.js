@@ -21,11 +21,12 @@ exports.registerUser = (displayName, email, password) => {
     return userServices.registerUser(user);
 };
 
-exports.updateUserInfo = (userId, displayName, phoneNumber, address) => {
+exports.updateUserInfo = (userId, displayName, phoneNumber, address, photoURL) => {
     var userInfo = {
         displayName: displayName,
         phoneNumber: phoneNumber,
         address: address,
+        photoURL: photoURL,
     };
     return userServices.updateUserInfo(userId, userInfo);
 };

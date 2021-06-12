@@ -11,7 +11,7 @@ var userSchema = new Schema({
     phoneNumber: { type: String },
     favorPoint: { type: Number },
     reputationPoint: { type: Number },
-    profilePicture: { type: String },
+    photoURL: { type: String },
 });
 
 module.exports = mongoose.model('User', userSchema);

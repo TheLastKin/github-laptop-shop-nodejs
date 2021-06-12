@@ -55,12 +55,13 @@ router.get('/registerUser/:displayName/:email/:password', async function(req, re
     ));
 });
 
-router.get('/updateUser/:userId/:displayName/:phoneNumber/:address', async function(req, res){
+router.get('/updateUser/:userId/:displayName/:phoneNumber/:address/:photoURL', async function(req, res){
     res.json(await userController.updateUserInfo(
         req.params.userId,
         req.params.displayName,
         req.params.phoneNumber,
         req.params.address,
+        req.params.photoURL,
     ));
 });
 
